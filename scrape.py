@@ -18,6 +18,7 @@ mega_subtext = subtext + subtext2
 def sort_stories_by_votes(hnlist):
     return sorted(hnlist, key= lambda k:k['votes'], reverse=True)
 
+# hn = hacker news
 def create_custom_hn(links, subtext):
     hn = []
     for idx, item in enumerate(links):
