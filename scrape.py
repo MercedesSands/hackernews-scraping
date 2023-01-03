@@ -2,11 +2,14 @@ import requests
 from bs4 import BeautifulSoup
 import pprint
 
+# grabs information from the server 
+# res.text gets the html from the site
 res = requests.get('https://news.ycombinator.com/news')
 res2 = requests.get('https://news.ycombinator.com/news?p=2')
 soup = BeautifulSoup(res.text, 'html.parser')
 soup2 = BeautifulSoup(res2.text, 'html.parser')
 
+# select is from css selectors which grabs the info from the tag <> inside the ()
 links = soup.select('.titleline > a') 
 subtext = soup.select('.subtext')
 links2 = soup2.select('.titleline > a') 
@@ -19,6 +22,7 @@ def sort_stories_by_votes(hnlist):
     return sorted(hnlist, key= lambda k:k['votes'], reverse=True)
 
 # hn = hacker news
+# recieves links and subtext
 def create_custom_hn(links, subtext):
     hn = []
     for idx, item in enumerate(links):
