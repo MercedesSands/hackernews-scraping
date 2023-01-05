@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import pprint
 
+
 # grabs information from the server 
 # res.text gets the html from the site
 res = requests.get('https://news.ycombinator.com/news')
@@ -27,12 +28,12 @@ def create_custom_hn(links, subtext):
     hn = []
     for idx, item in enumerate(links):
         title = item.getText()
-    href = item.get('href', None)
-    vote = subtext[idx].select('.score')
-    if len(vote):
-        points = int(vote[0].getText().replace(' points', ''))
-        if points > 99:
-            hn.append({'title': title, 'link': href, 'votes': points})
+        href = item.get('href', None)
+        vote = subtext[idx].select('.score')
+        if len(vote):
+            points = int(vote[0].getText().replace(' points', ''))
+            if points > 99:
+                hn.append({'title': title, 'link': href, 'votes': points})
     return sort_stories_by_votes(hn)
 
 pprint.pprint(create_custom_hn(mega_links, mega_subtext))
